@@ -1,77 +1,47 @@
-use std::convert::TryFrom;
-use std::fs::File;
-use std::io::{BufRead, BufReader};
+use std::io::stdout;
 
-use clap::{App, AppSettings, Arg};
-use conllx::graph::Node;
-use conllx::io::{ReadSentence, Reader};
-use stdinout::OrExit;
-use wordpieces::{WordPiece, WordPieces};
+use clap::{App, AppSettings, Arg, Shell, SubCommand};
+
+mod subcommands;
+
+pub mod traits;
+use traits::WordPiecesApp;
 
 static DEFAULT_CLAP_SETTINGS: &[AppSettings] = &[
     AppSettings::DontCollapseArgsInUsage,
     AppSettings::UnifiedHelpMessage,
+    AppSettings::SubcommandRequiredElseHelp,
 ];
 
 fn main() {
-    let matches = App::new("word-piece-stats")
+    // Known subapplications.
+    let apps = vec![subcommands::StatsApp::app()];
+
+    let cli = App::new("wordpieces")
         .settings(DEFAULT_CLAP_SETTINGS)
-        .arg(
-            Arg::with_name("WORDPIECES")
-                .help("Word pieces file")
-                .index(1)
-                .required(true),
-        )
-        .arg(
-            Arg::with_name("INPUT")
-                .help("Input file")
-                .index(2)
-                .required(true),
-        )
-        .get_matches();
+        .subcommands(apps)
+        .subcommand(
+            SubCommand::with_name("completions")
+                .about("Generate completion scripts for your shell")
+                .setting(AppSettings::ArgRequiredElseHelp)
+                .arg(Arg::with_name("shell").possible_values(&Shell::variants())),
+        );
+    let matches = cli.clone().get_matches();
 
-    let wordpieces_file =
-        File::open(matches.value_of("WORDPIECES").unwrap()).or_exit("Cannot open input", 1);
-    let word_pieces = WordPieces::try_from(BufReader::new(wordpieces_file).lines())
-        .or_exit("Cannot read word pieces", 1);
-
-    let conll_file = File::open(matches.value_of("INPUT").unwrap()).or_exit("Cannot open input", 1);
-    let reader = Reader::new(BufReader::new(conll_file));
-
-    let mut counts = Vec::new();
-    let mut unknowns = 0;
-    let mut suffix_unknowns = 0;
-    let mut n_tokens = 0;
-
-    for sentence in reader.sentences() {
-        let sentence = sentence.or_exit("Cannot read sentence", 1);
-
-        for token in sentence.iter().filter_map(Node::token) {
-            let pieces: Vec<_> = word_pieces.split(token.form()).collect();
-            if pieces[0] == WordPiece::Missing {
-                unknowns += 1;
-            } else if *pieces.last().unwrap() == WordPiece::Missing {
-                suffix_unknowns += 1;
-            } else {
-                counts.push(pieces.len());
-            }
-            n_tokens += 1;
+    match matches.subcommand_name().unwrap() {
+        "completions" => {
+            let shell = matches
+                .subcommand_matches("completions")
+                .unwrap()
+                .value_of("shell")
+                .unwrap();
+            write_completion_script(cli, shell.parse::<Shell>().unwrap());
         }
+        "stats" => subcommands::StatsApp::parse(matches.subcommand_matches("stats").unwrap()).run(),
+        _unknown => unreachable!(),
     }
+}
 
-    counts.sort();
-
-    eprintln!(
-        "Unknown: {:.2}%",
-        (unknowns as f64 / n_tokens as f64) * 100.
-    );
-    eprintln!(
-        "Unknown suffix: {:.2}%",
-        (suffix_unknowns as f64 / n_tokens as f64) * 100.
-    );
-    eprintln!(
-        "Average length: {:.2}",
-        counts.iter().sum::<usize>() as f64 / counts.len() as f64
-    );
-    eprintln!("Median length: {}", counts[counts.len() / 2]);
+fn write_completion_script(mut cli: App, shell: Shell) {
+    cli.gen_completions_to("finalfusion", shell, &mut stdout());
 }
