@@ -15,7 +15,7 @@ static DEFAULT_CLAP_SETTINGS: &[AppSettings] = &[
 
 fn main() {
     // Known subapplications.
-    let apps = vec![subcommands::StatsApp::app()];
+    let apps = vec![subcommands::PrintApp::app(), subcommands::StatsApp::app()];
 
     let cli = App::new("wordpieces")
         .settings(DEFAULT_CLAP_SETTINGS)
@@ -37,6 +37,7 @@ fn main() {
                 .unwrap();
             write_completion_script(cli, shell.parse::<Shell>().unwrap());
         }
+        "print" => subcommands::PrintApp::parse(matches.subcommand_matches("print").unwrap()).run(),
         "stats" => subcommands::StatsApp::parse(matches.subcommand_matches("stats").unwrap()).run(),
         _unknown => unreachable!(),
     }
