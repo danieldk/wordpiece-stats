@@ -73,8 +73,8 @@ dependencies = [
 ]
 
 [[package]]
-name = "conllx"
-version = "0.12.1"
+name = "conllu"
+version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "failure 0.1.6 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -264,7 +264,7 @@ name = "wordpiece-stats"
 version = "0.1.0"
 dependencies = [
  "clap 2.33.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "conllx 0.12.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "conllu 0.3.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "stdinout 0.4.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "wordpieces 0.2.1 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
@@ -288,7 +288,7 @@ dependencies = [
 "checksum cc 1.0.49 (registry+https://github.com/rust-lang/crates.io-index)" = "e450b8da92aa6f274e7c6437692f9f2ce6d701fb73bacfcf87897b3f89a4c20e"
 "checksum cfg-if 0.1.10 (registry+https://github.com/rust-lang/crates.io-index)" = "4785bdd1c96b2a846b2bd7cc02e86b6b3dbf14e7e53446c4f54c92a361040822"
 "checksum clap 2.33.0 (registry+https://github.com/rust-lang/crates.io-index)" = "5067f5bb2d80ef5d68b4c87db81601f0b75bca627bc2ef76b141d7b846a3c6d9"
-"checksum conllx 0.12.1 (registry+https://github.com/rust-lang/crates.io-index)" = "c38ec5642ce1b214866b917b82093a0fe9c75503dc005763737873aa4cfa4a94"
+"checksum conllu 0.3.0 (registry+https://github.com/rust-lang/crates.io-index)" = "9dee5dd5b0b56cc292948eac948265b1f464bbd8b8bb1711b949624c8e4564b9"
 "checksum either 1.5.3 (registry+https://github.com/rust-lang/crates.io-index)" = "bb1f6b1ce1c140482ea30ddd3335fc0024ac7ee112895426e0a629a6c20adfe3"
 "checksum failure 0.1.6 (registry+https://github.com/rust-lang/crates.io-index)" = "f8273f13c977665c5db7eb2b99ae520952fe5ac831ae4cd09d80c4c7042b5ed9"
 "checksum failure_derive 0.1.6 (registry+https://github.com/rust-lang/crates.io-index)" = "0bc225b78e0391e4b8683440bf2e63c2deeeb2ce5189eab46e2b68c6d3725d08"

@@ -6,6 +6,6 @@ edition = "2018"
 
 [dependencies]
 clap = "2"
-conllx = "0.12"
+conllu = "0.3"
 stdinout = "0.4"
 wordpieces = "0.2.1"

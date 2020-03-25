@@ -3,8 +3,8 @@ use std::fs::File;
 use std::io::{BufRead, BufReader};
 
 use clap::{App, AppSettings, Arg, ArgMatches};
-use conllx::graph::Node;
-use conllx::io::{ReadSentence, Reader};
+use conllu::graph::Node;
+use conllu::io::{ReadSentence, Reader};
 use stdinout::OrExit;
 use wordpieces::{WordPiece, WordPieces};
 
