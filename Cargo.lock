@@ -266,12 +266,12 @@ dependencies = [
  "clap 2.33.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "conllx 0.12.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "stdinout 0.4.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "wordpieces 0.1.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "wordpieces 0.2.1 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
 name = "wordpieces"
-version = "0.1.1"
+version = "0.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "failure 0.1.6 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -314,4 +314,4 @@ dependencies = [
 "checksum winapi 0.3.8 (registry+https://github.com/rust-lang/crates.io-index)" = "8093091eeb260906a183e6ae1abdba2ef5ef2257a21801128899c3fc699229c6"
 "checksum winapi-i686-pc-windows-gnu 0.4.0 (registry+https://github.com/rust-lang/crates.io-index)" = "ac3b87c63620426dd9b991e5ce0329eff545bccbbb34f3be09ff6fb6ab51b7b6"
 "checksum winapi-x86_64-pc-windows-gnu 0.4.0 (registry+https://github.com/rust-lang/crates.io-index)" = "712e227841d057c1ee1cd2fb22fa7e5a5461ae8e48fa2ca79ec42cfc1931183f"
-"checksum wordpieces 0.1.1 (registry+https://github.com/rust-lang/crates.io-index)" = "91990bbe74f295381c33fb434a481f5a7165dbc40adc0e909670557a470c16ce"
+"checksum wordpieces 0.2.1 (registry+https://github.com/rust-lang/crates.io-index)" = "81998ca69f6f03ff8c2fcb64cfef35ac8a0897655f12c7510a884fb420def441"
